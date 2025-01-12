@@ -12,7 +12,7 @@ st.title("Research Assistant")
 
 # Initialize session state
 if "agent" not in st.session_state:
-    st.session_state.agent = ResearchAgent(os.getenv("OPENAI_API_KEY"))
+    st.session_state.agent = UPAgent(os.getenv("OPENAI_API_KEY"))
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
