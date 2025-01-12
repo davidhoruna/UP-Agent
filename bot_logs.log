@@ -1,0 +1,124 @@
+2025-01-12 10:35:38,109 - __main__ - INFO - Created PDF directory: /pdfs
+2025-01-12 10:35:38,110 - __main__ - WARNING - No PDF files found in /pdfs
+2025-01-12 10:35:38,450 - __main__ - ERROR - Error initializing vector store: 'dict' object has no attribute 'page_content'
+2025-01-12 10:35:38,451 - __main__ - ERROR - Error initializing bot: 'dict' object has no attribute 'page_content'
+2025-01-12 10:35:38,452 - __main__ - ERROR - Fatal error: 'dict' object has no attribute 'page_content'
+2025-01-12 10:36:01,866 - __main__ - INFO - Loaded regulation PDF: pdfs\Lenguaje II - 120006 - D (2025-00-PRE)(1).pdf
+2025-01-12 10:36:02,299 - __main__ - INFO - Loaded regulation PDF: pdfs\ReglamentodeEstudiosdePregrado.pdf
+2025-01-12 10:36:02,710 - __main__ - INFO - Loaded regulation PDF: pdfs\Silabo_EGII_2025-00_-_Todas_las_secciones[1].pdf
+2025-01-12 10:36:03,412 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 10:36:05,737 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+2025-01-12 10:36:06,702 - __main__ - INFO - Regulation vector store initialized successfully
+2025-01-12 10:36:07,351 - __main__ - INFO - Bot inicializado con reglamentos universitarios
+2025-01-12 10:36:26,541 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 10:38:19,405 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 10:47:39,217 - __main__ - ERROR - Error processing message: 'UPAgent' object has no attribute 'user_agent'
+Traceback (most recent call last):
+  File "c:\Users\DHO_d\Desktop\repos\UP-Agent\agent.py", line 605, in process_message
+    response = self.user_agent.agent.invoke(
+               ^^^^^^^^^^^^^^^
+AttributeError: 'UPAgent' object has no attribute 'user_agent'
+
+2025-01-12 10:50:30,399 - __main__ - ERROR - Error processing message: 'UPAgent' object has no attribute 'user_agent'
+Traceback (most recent call last):
+  File "c:\Users\DHO_d\Desktop\repos\UP-Agent\agent.py", line 605, in process_message
+AttributeError: 'UPAgent' object has no attribute 'user_agent'
+
+2025-01-12 10:50:37,560 - __main__ - ERROR - Fatal error: 'UPAgent' object has no attribute 'initialize_vector_store'
+2025-01-12 10:51:33,754 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 10:51:38,908 - __main__ - ERROR - Error in main loop: 'UPAgent' object has no attribute 'process_message'
+2025-01-12 11:01:57,333 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 11:02:09,551 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 11:02:49,105 - __main__ - INFO - Processing user message: hi
+2025-01-12 11:02:50,960 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:02:54,428 - __main__ - INFO - Processing user message: who are u
+2025-01-12 11:02:56,113 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:04:13,553 - __main__ - INFO - Processing user message: C:/Users/DHO_d/anaconda3/envs/up-agent/python.exe c:/Users/DHO_d/Desktop/repos/UP-Agent/agent.py
+2025-01-12 11:04:18,342 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:04:28,694 - __main__ - INFO - Processing user message: hey
+2025-01-12 11:04:30,011 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:04:31,670 - __main__ - INFO - Processing user message: who are u
+2025-01-12 11:04:33,301 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:04:40,320 - __main__ - INFO - Processing user message: no you aren't
+2025-01-12 11:04:42,522 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:04:57,367 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 11:05:02,133 - __main__ - INFO - Processing user message: hola
+2025-01-12 11:05:03,995 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:05:04,015 - __main__ - ERROR - Error processing message: One input key expected got ['input', 'system_message']
+Traceback (most recent call last):
+  File "c:\Users\DHO_d\Desktop\repos\UP-Agent\agent.py", line 586, in process_message
+    user_response = self.user_agent.agent.run({
+        "input": message,
+        "chat_history": self.memory.chat_memory.messages,
+        "system_message": system_reminder
+    })
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain_core\_api\deprecation.py", line 182, in warning_emitting_wrapper
+    return wrapped(*args, **kwargs)
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 606, in run
+    return self(args[0], callbacks=callbacks, tags=tags, metadata=metadata)[
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain_core\_api\deprecation.py", line 182, in warning_emitting_wrapper
+    return wrapped(*args, **kwargs)
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 389, in __call__
+    return self.invoke(
+           ~~~~~~~~~~~^
+        inputs,
+        ^^^^^^^
+    ...<2 lines>...
+        include_run_info=include_run_info,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 170, in invoke
+    raise e
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 165, in invoke
+    final_outputs: Dict[str, Any] = self.prep_outputs(
+                                    ~~~~~~~~~~~~~~~~~^
+        inputs, outputs, return_only_outputs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 466, in prep_outputs
+    self.memory.save_context(inputs, outputs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\memory\chat_memory.py", line 72, in save_context
+    input_str, output_str = self._get_input_output(inputs, outputs)
+                            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\memory\chat_memory.py", line 47, in _get_input_output
+    prompt_input_key = get_prompt_input_key(inputs, self.memory_variables)
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\memory\utils.py", line 19, in get_prompt_input_key
+    raise ValueError(f"One input key expected got {prompt_input_keys}")
+ValueError: One input key expected got ['input', 'system_message']
+
+2025-01-12 11:08:41,868 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 11:08:44,609 - __main__ - INFO - Processing user message: hi
+2025-01-12 11:08:46,607 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:08:48,477 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:08:50,335 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:08:51,504 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-01-12 11:08:51,512 - __main__ - ERROR - Error processing message: Could not parse LLM output: `Lo siento, pero parece que ha habido un error en el proceso. ¿Cómo puedo asistirte hoy?`
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/OUTPUT_PARSING_FAILURE 
+Traceback (most recent call last):
+  File "c:\Users\DHO_d\Desktop\repos\UP-Agent\agent.py", line 591, in process_message
+    user_response = self.user_agent.agent.invoke({
+        "input": message,
+        "chat_history": self.memory.chat_memory.messages
+    })
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 170, in invoke
+    raise e
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\chains\base.py", line 160, in invoke
+    self._call(inputs, run_manager=run_manager)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\agents\agent.py", line 1647, in _call
+    output = self._action_agent.return_stopped_response(
+        self.early_stopping_method, intermediate_steps, **inputs
+    )
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\agents\agent.py", line 998, in return_stopped_response
+    parsed_output = self.output_parser.parse(full_output)
+  File "C:\Users\DHO_d\anaconda3\envs\up-agent\Lib\site-packages\langchain\agents\conversational\output_parser.py", line 42, in parse
+    raise OutputParserException(f"Could not parse LLM output: `{text}`")
+langchain_core.exceptions.OutputParserException: Could not parse LLM output: `Lo siento, pero parece que ha habido un error en el proceso. ¿Cómo puedo asistirte hoy?`
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/OUTPUT_PARSING_FAILURE 
+
+2025-01-12 11:12:50,358 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-01-12 11:12:51,173 - __main__ - ERROR - Fatal error: 'input'
