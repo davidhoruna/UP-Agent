@@ -4,8 +4,11 @@ from dotenv import load_dotenv
 from agent import UPAgent
 from pathlib import Path
 
-# Load environment variables
+# Load environment variables (local development)
 load_dotenv()
+
+# Get the API key from environment or Streamlit secrets
+api_key = os.getenv("OPENAI_API_KEY") or st.secrets["OPENAI_API_KEY"]
 
 # Page config
 st.set_page_config(
@@ -100,7 +103,7 @@ st.markdown("""
 
 # Initialize session state
 if "agent" not in st.session_state:
-    st.session_state.agent = UPAgent(os.getenv("OPENAI_API_KEY"), "pdfs")
+    st.session_state.agent = UPAgent(api_key, "pdfs")
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -111,6 +114,18 @@ with col1:
 with col2:
     st.title("🎓 Agente UP")
     st.markdown("### Pregunta tus dudas de la UP")
+
+# Add this function at the top level of your app.py
+def ensure_pdfs_directory():
+    """Ensure the pdfs directory exists and has default documents if needed"""
+    pdfs_dir = Path("pdfs")
+    pdfs_dir.mkdir(exist_ok=True)
+    
+    # Check if directory is empty
+    if not any(pdfs_dir.iterdir()):
+        st.info("No hay documentos cargados. Por favor, sube algunos PDFs para comenzar.")
+        return False
+    return True
 
 # Sidebar
 with st.sidebar:
@@ -124,14 +139,20 @@ with st.sidebar:
     
     if uploaded_files:
         with st.spinner("Procesando documentos..."):
-            Path("pdfs").mkdir(exist_ok=True)
+            ensure_pdfs_directory()
             for file in uploaded_files:
                 with open(f"pdfs/{file.name}", "wb") as f:
                     f.write(file.getvalue())
-            # Reinitialize agent with new PDFs
-            st.session_state.agent = UPAgent(os.getenv("OPENAI_API_KEY"), "pdfs")
+            # Reinitialize agent
+            st.session_state.agent = UPAgent(api_key, "pdfs")
             st.success("¡Documentos cargados exitosamente!")
     
+    # Add document status
+    if ensure_pdfs_directory():
+        st.success("✅ Documentos disponibles")
+    else:
+        st.warning("⚠️ No hay documentos cargados")
+
     st.header("⚙️ Opciones")
     if st.button("🗑️ Limpiar Conversación"):
         st.session_state.messages = []

@@ -1,6 +1,7 @@
-openai
-langchain_openai
+streamlit
+python-dotenv
 langchain
-langchain-community
-pypdf
+langchain-openai
 chromadb
+pypdf
+tiktoken
