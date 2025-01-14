@@ -50,18 +50,30 @@ class UPAgent:
         """Initialize and load the vector store"""
         try:
             embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
+            
+            # Configuración para Chroma 0.5.x
             vector_store = Chroma(
                 persist_directory="chroma_db",
                 embedding_function=embeddings,
-                collection_name="up_docs"
+                collection_name="up_docs",
+                # Los nuevos parámetros de Chroma 0.5
+                collection_metadata={
+                    "hnsw:space": "cosine",
+                    "hnsw:construction_policy": "best_effort"
+                }
             )
 
             # Load PDFs only if the vector store is empty
-            if vector_store._collection.count() == 0:
+            collection_size = vector_store._collection.count()
+            if collection_size == 0:
                 pdf_files = list(self.pdf_directory.glob("*.pdf"))
                 if pdf_files:
                     logger.info(f"Loading {len(pdf_files)} PDF files...")
                     self._load_pdfs(vector_store, pdf_files)
+                else:
+                    logger.warning("No PDF files found in directory")
+            else:
+                logger.info(f"Using existing vector store with {collection_size} documents")
 
             return vector_store
 
@@ -73,7 +85,9 @@ class UPAgent:
         """Load PDFs into the vector store"""
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
-            chunk_overlap=200
+            chunk_overlap=200,
+            length_function=len,
+            is_separator_regex=False
         )
         
         for pdf_path in pdf_files:
@@ -83,16 +97,23 @@ class UPAgent:
                 documents = loader.load()
                 chunks = text_splitter.split_documents(documents)
                 
-                # Add metadata
+                # Enhanced metadata
                 for chunk in chunks:
-                    chunk.metadata["source"] = pdf_path.name
+                    chunk.metadata.update({
+                        "source": pdf_path.name,
+                        "file_path": str(pdf_path),
+                        "chunk_size": len(chunk.page_content),
+                        "processed_date": str(Path(pdf_path).stat().st_mtime)
+                    })
                 
                 vector_store.add_documents(chunks)
+                logger.info(f"Added {len(chunks)} chunks from {pdf_path.name}")
                 
             except Exception as e:
                 logger.error(f"Error processing {pdf_path.name}: {e}")
 
         vector_store.persist()
+        logger.info("Vector store persisted successfully")
 
     def process_message(self, message: str) -> str:
         """Process user message and return response"""
