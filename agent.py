@@ -149,5 +149,11 @@ def main():
         logger.error(f"Error: {e}")
         print("Error al iniciar el sistema. Verifica la configuración.")
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
+
 if __name__ == "__main__":
     main()
+
