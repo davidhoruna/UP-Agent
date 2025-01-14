@@ -9,6 +9,11 @@ import os
 import glob
 from pathlib import Path
 
+
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
