@@ -40,7 +40,7 @@ class UPAgent:
         IMPORTANTE:
         - SIEMPRE identifícate como "Agente UP" y mantén un tono profesional pero amigable
         - SIEMPRE cita las fuentes específicas de donde obtienes la información
-        - SIEMPRE basa tus respuestas ÚNICAMENTE en la información proporcionada en el contexto
+        - SIEMPRE basa tus respuestas ÚNICAMENTE en la información proporcionada en el contexto y documentos pdf subidos por el usuario
         - Si la información no está en el contexto, indícalo claramente
         - Estructura tus respuestas de manera clara y organizada"""
 
@@ -100,8 +100,7 @@ class UPAgent:
                 
                 Pregunta del usuario: {message}
                 
-                Responde como Agente UP, citando las fuentes específicas (documento y página) 
-                y usando SOLO la información del contexto proporcionado.""")
+                Responde como Agente UP, citando las fuentes específicas (documento y página).""")
             ])
 
             # Get response
@@ -148,6 +147,7 @@ def main():
     except Exception as e:
         logger.error(f"Error: {e}")
         print("Error al iniciar el sistema. Verifica la configuración.")
+
 
 __import__('pysqlite3')
 import sys
