@@ -4,7 +4,7 @@ langchain>=0.2.9
 langchain-openai
 langchain-community
 langchain-chroma
-chromadb = 0.3.29
+chromadb == 0.3.29
 pypdf
 tiktoken
 psycopg2-binary
