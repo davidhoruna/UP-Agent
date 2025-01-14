@@ -8,4 +8,4 @@ langchain-chroma
 pypdf
 tiktoken
 psycopg2-binary
-pysqlite3-binary
+pysqlite3-binary==0.5.2
