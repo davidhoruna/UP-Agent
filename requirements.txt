@@ -1,11 +1,10 @@
-streamlit==1.28.1
-chromadb==0.4.17
+streamlit
 python-dotenv
 langchain>=0.2.9
 langchain-openai
 langchain-community
-langchain-chroma 
+langchain-chroma
+chromadb==0.4.22
 pypdf
 tiktoken
-psycopg2-binary
 pysqlite3-binary

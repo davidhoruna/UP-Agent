@@ -1,10 +1,6 @@
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-
-
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import SystemMessage, HumanMessage
 from langchain.memory import ConversationBufferMemory
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -13,68 +9,59 @@ import logging
 import os
 import glob
 from pathlib import Path
+import shutil
 
-
-
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 class UPAgent:
     def __init__(self, api_key: str, pdf_directory: str):
+        """Initialize UP Agent with API key and PDF directory"""
         self.api_key = api_key
+        self.pdf_directory = Path(pdf_directory)
         
-        # Initialize LLM
-        self.llm = ChatOpenAI(
-            api_key=api_key,
+        # Ensure PDF directory exists
+        self.pdf_directory.mkdir(exist_ok=True)
+        
+        # Initialize components
+        self.llm = self._initialize_llm()
+        self.vector_store = self._initialize_vector_store()
+        self.memory = self._initialize_memory()
+
+    def _initialize_llm(self):
+        """Initialize the language model"""
+        return ChatOpenAI(
+            api_key=self.api_key,
             model_name="gpt-4-turbo-preview",
             temperature=0.7
         )
-        
-        # Initialize vector store
-        self.vector_store = self._initialize_vector_store(pdf_directory)
-        
-        # Initialize memory
-        self.memory = ConversationBufferMemory(
+
+    def _initialize_memory(self):
+        """Initialize conversation memory"""
+        return ConversationBufferMemory(
             return_messages=True,
             memory_key="chat_history"
         )
 
-        # System prompt
-        self.system_prompt = """Eres Agente UP, un asistente especializado de la Universidad del Pacífico.
-        Tu función es ayudar a estudiantes a encontrar y entender información sobre los reglamentos universitarios.
-
-        IMPORTANTE:
-        - SIEMPRE identifícate como "Agente UP" y mantén un tono profesional pero amigable
-        - SIEMPRE cita las fuentes específicas de donde obtienes la información
-        - SIEMPRE basa tus respuestas ÚNICAMENTE en la información proporcionada en el contexto y documentos pdf subidos por el usuario
-        - Si la información no está en el contexto, indícalo claramente
-        - Estructura tus respuestas de manera clara y organizada"""
-
-    def _initialize_vector_store(self, pdf_directory: str) -> Chroma:
-        """Initialize vector store with PDF documents"""
+    def _initialize_vector_store(self) -> Chroma:
+        """Initialize and load the vector store"""
         try:
             embeddings = OpenAIEmbeddings(openai_api_key=self.api_key)
             vector_store = Chroma(
                 persist_directory="chroma_db",
-                embedding_function=embeddings
+                embedding_function=embeddings,
+                collection_name="up_docs"
             )
 
-            # Load PDFs if store is empty
-            if not vector_store._collection.count():
-                text_splitter = RecursiveCharacterTextSplitter(
-                    chunk_size=1000,
-                    chunk_overlap=200
-                )
-                
-                for pdf_path in glob.glob(os.path.join(pdf_directory, "*.pdf")):
-                    loader = PyPDFLoader(pdf_path)
-                    documents = loader.load()
-                    chunks = text_splitter.split_documents(documents)
-                    # Add source filename to metadata
-                    for chunk in chunks:
-                        chunk.metadata["source"] = Path(pdf_path).name
-                    vector_store.add_documents(chunks)
-                vector_store.persist()
+            # Load PDFs only if the vector store is empty
+            if vector_store._collection.count() == 0:
+                pdf_files = list(self.pdf_directory.glob("*.pdf"))
+                if pdf_files:
+                    logger.info(f"Loading {len(pdf_files)} PDF files...")
+                    self._load_pdfs(vector_store, pdf_files)
 
             return vector_store
 
@@ -82,9 +69,39 @@ class UPAgent:
             logger.error(f"Error initializing vector store: {e}")
             raise
 
+    def _load_pdfs(self, vector_store, pdf_files):
+        """Load PDFs into the vector store"""
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200
+        )
+        
+        for pdf_path in pdf_files:
+            try:
+                logger.info(f"Processing {pdf_path.name}")
+                loader = PyPDFLoader(str(pdf_path))
+                documents = loader.load()
+                chunks = text_splitter.split_documents(documents)
+                
+                # Add metadata
+                for chunk in chunks:
+                    chunk.metadata["source"] = pdf_path.name
+                
+                vector_store.add_documents(chunks)
+                
+            except Exception as e:
+                logger.error(f"Error processing {pdf_path.name}: {e}")
+
+        vector_store.persist()
+
     def process_message(self, message: str) -> str:
         """Process user message and return response"""
         try:
+            # Check if we have any documents loaded
+            if not self.vector_store._collection.count():
+                return ("No hay documentos cargados en el sistema. "
+                       "Por favor, carga algunos PDFs para poder responder consultas.")
+
             # Search relevant documents
             docs = self.vector_store.similarity_search(message)
             
@@ -97,16 +114,13 @@ class UPAgent:
             
             context = "\n\n".join(context_parts)
 
-            # Create prompt with context
+            # Create prompt
             prompt = ChatPromptTemplate.from_messages([
-                ("system", self.system_prompt),
+                ("system", self._get_system_prompt()),
                 MessagesPlaceholder(variable_name="chat_history"),
-                ("human", f"""Contexto del reglamento:
-                {context}
-                
-                Pregunta del usuario: {message}
-                
-                Responde como Agente UP, citando las fuentes específicas (documento y página).""")
+                ("human", f"Contexto del reglamento:\n{context}\n\n"
+                         f"Pregunta del usuario: {message}\n\n"
+                         "Responde como Agente UP, citando las fuentes específicas.")
             ])
 
             # Get response
@@ -125,7 +139,20 @@ class UPAgent:
 
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            return "Lo siento, hubo un error al procesar tu consulta. Por favor, intenta de nuevo."
+            return ("Lo siento, hubo un error al procesar tu consulta. "
+                   "Por favor, intenta de nuevo.")
+
+    def _get_system_prompt(self):
+        """Get the system prompt for the agent"""
+        return """Eres Agente UP, un asistente especializado de la Universidad del Pacífico.
+        Tu función es ayudar a estudiantes a encontrar y entender información sobre los reglamentos universitarios.
+
+        IMPORTANTE:
+        - SIEMPRE identifícate como "Agente UP" y mantén un tono profesional pero amigable
+        - SIEMPRE cita las fuentes específicas de donde obtienes la información
+        - SIEMPRE basa tus respuestas ÚNICAMENTE en la información proporcionada en el contexto
+        - Si la información no está en el contexto, indícalo claramente
+        - Estructura tus respuestas de manera clara y organizada"""
 
 def main():
     try:
@@ -154,8 +181,5 @@ def main():
         logger.error(f"Error: {e}")
         print("Error al iniciar el sistema. Verifica la configuración.")
 
-
-
 if __name__ == "__main__":
     main()
-

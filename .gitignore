@@ -5,4 +5,5 @@ chroma_db/
 pdfs/*
 !pdfs/.gitkeep
 bot_logs.log
-document_store.db
+*.ipynb
+.DS_Store
