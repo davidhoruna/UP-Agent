@@ -5,8 +5,6 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import pysqlite3 as sqlite3
 from pathlib import Path
 import streamlit as st
-import shutil
-import os
 
 class PDFDatabase:
     def __init__(self, db_path="pdf_database.db", pdf_storage="stored_pdfs"):
