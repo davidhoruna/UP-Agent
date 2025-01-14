@@ -8,4 +8,3 @@ chromadb>=0.4.22
 pypdf
 tiktoken
 psycopg2-binary
-pysqlite3-binary
