@@ -1,10 +1,11 @@
 # Agente UP 
+---
 
-<div style="display: flex">
-<img src="logo.png" width="300" height="300">
+
+<img src="logo.png" alt="Logo" width="300" height="300" align="left">
 
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
-</div>
+
 ---
 
 ### Challenge addressed
