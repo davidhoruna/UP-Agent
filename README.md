@@ -4,9 +4,10 @@
 
 # UP Agent
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
-
-</div>
+[![][latest-version-shield]][latest-version-link]<br/>
 ---
+</div>
+
 
 ### Challenge addressed
 Create an intelligent virtual assistant to help Universidad del Pacífico students easily understand and access information from institutional regulations and documents.
