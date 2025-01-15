@@ -3,7 +3,7 @@
 
 <div align ="center">
 
-![Diseño sin título (1)](https://up-agent.streamlit.app/)
+<a href = "https://up-agent.streamlit.app/"><img src = "banner.png" width = 500 ></a>
 
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
 
