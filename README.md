@@ -1,10 +1,8 @@
-# Agente UP 
 ---
 
 <div align ="center">
 
-<a href = "https://up-agent.streamlit.app/"><img src = "banner.png" width = 500 ></a>
-
+# UP Agent
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
 
 </div>
