@@ -2,14 +2,11 @@
 ---
 
 <div align ="center">
-
-<img src="logo.png" alt="Logo" width="200" height="200" align="left">
-<br></br>
-<br></br>
+  
+![Diseño sin título (1)](https://github.com/user-attachments/assets/5d105f73-3f35-4248-8945-817e08569afc)
 
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
-<br></br>
-<br></br>
+
 </div>
 ---
 
