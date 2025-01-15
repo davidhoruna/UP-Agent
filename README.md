@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="logo.png" width="500" height="300">
+<img src="logo.png" width="300" height="300">
 
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
 
