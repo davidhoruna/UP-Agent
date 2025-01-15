@@ -1,12 +1,8 @@
 # Agente UP 
 
-<div align="center">
-
 <img src="logo.png" width="300" height="300">
 
 An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
-
-</div>
 
 ---
 
@@ -32,6 +28,8 @@ Implementation of GPT-4 with conversational memory and semantic search in vector
 - 💬 Conversational memory
 - 📝 Automatic source citation
 - 🎓 Specialized in UP regulations
+
+![image](https://github.com/user-attachments/assets/979b031f-70a6-445e-90ca-c808f9051471)
 
 <div align="center">
 Made with ❤️ for Universidad del Pacífico
