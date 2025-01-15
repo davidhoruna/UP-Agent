@@ -2,50 +2,37 @@
 
 <div align="center">
 
-![Logo UP](logo.png)
+<img src="logo.png" width="500" height="300">
 
-Un asistente virtual inteligente que ayuda a estudiantes de la Universidad del Pacífico a entender y acceder fácilmente a la información de reglamentos y documentos institucionales.
-
-[English](#english) | [Español](#español)
+An intelligent virtual assistant that helps Universidad del Pacífico students understand and easily access information from regulations and institutional documents.
 
 </div>
 
 ---
 
-### Desafío abordado
-Crear un asistente virtual inteligente que ayude a estudiantes de la Universidad del Pacífico a entender y acceder fácilmente a la información de reglamentos y documentos institucionales.
+### Challenge addressed
+Create an intelligent virtual assistant to help Universidad del Pacífico students easily understand and access information from institutional regulations and documents.
 
-### Recolección y enriquecimiento de datos
-Procesamiento de documentos PDF institucionales (reglamentos, sílabos, SAR) mediante embeddings y vectorización semántica para búsqueda contextual inteligente.
+### Data collection and enrichment
+Processing of institutional PDF documents (regulations, syllabi, SAR) through embeddings and semantic vectorization for intelligent contextual search.
 
-### Modelo predictivo
-Implementación de GPT-4 con memoria conversacional y búsqueda semántica en documentos vectorizados para proporcionar respuestas precisas y contextualizadas.
+### Predictive model
+Implementation of GPT-4 with conversational memory and semantic search in vectorized documents to provide accurate and contextualized answers.
 
-### Tecnologías utilizadas
+### Technologies used
 - Python
 - LangChain
 - OpenAI
 - ChromaDB
 - Streamlit
 
-### Características principales
-- 🤖 Interfaz conversacional intuitiva
-- 📚 Búsqueda semántica en documentos
-- 💬 Memoria conversacional
-- 📝 Citación automática de fuentes
-- 🎓 Especializado en reglamentos UP
-
-![image](https://github.com/user-attachments/assets/6022c30b-ad96-49f0-ad46-8abc22bbf35b)
-
-
-## 📝 License
-Este proyecto está bajo la licencia MIT 
-
-## 🤝 Contributing
-Las contribuciones son bienvenidas.
-
----
+### Key Features
+- 🤖 Intuitive conversational interface
+- 📚 Semantic document search
+- 💬 Conversational memory
+- 📝 Automatic source citation
+- 🎓 Specialized in UP regulations
 
 <div align="center">
-Desarrollado con ❤️ para la Universidad del Pacífico
+Made with ❤️ for Universidad del Pacífico
 </div>
