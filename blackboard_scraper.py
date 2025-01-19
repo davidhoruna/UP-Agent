@@ -286,6 +286,6 @@ class BlackboardScraper:
 
 if __name__ == "__main__":
     scraper = BlackboardScraper()
-    if scraper.login("d.huamanor", "123@Pato"):
+    if scraper.login("", ""):
         total = scraper.download_course_files()
         print(f"Downloaded {total} files.")

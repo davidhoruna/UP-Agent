@@ -7,4 +7,6 @@ pdfs/*
 *.log
 *.ipynb
 token.json
+credentials.json
 .DS_Store
+testing/
