@@ -4,6 +4,7 @@ __pycache__/
 chroma_db/
 pdfs/*
 !pdfs/.gitkeep
-bot_logs.log
+*.log
 *.ipynb
+token.json
 .DS_Store
