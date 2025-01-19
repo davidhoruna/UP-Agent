@@ -25,8 +25,9 @@ An intelligent virtual assistant that helps Universidad del Pacífico students e
 
 
 
+### Try it!
 
-![image](https://github.com/user-attachments/assets/9589519f-277f-4d14-8553-508886c6c5f0)
+<a href=https://up-agent.streamlit.app/> <img src = https://github.com/user-attachments/assets/9589519f-277f-4d14-8553-508886c6c5f0></a>
 
 <div align="center">
 Made with ❤️ for Universidad del Pacífico
